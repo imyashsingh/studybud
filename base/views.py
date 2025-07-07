@@ -1,19 +1,17 @@
 from django.shortcuts import render
 
+
+from .models import Room
 # Create your views here.
 
-rooms=[
-    {'id':1,'name':'Learn Python'},
-    {'id':2,'name':'Learn Django'},
-]
-
-
+#Home view to display all rooms
 def home(request):
+    rooms=Room.objects.all()
     context={'rooms':rooms}
     return render(request, 'base/home.html',context)
 
-
+#room views to dispaly selected room
 def room(request,pk):
-    room=rooms[int(pk)-1]
+    room=Room.objects.get(id=pk)
     context={'room':room}
     return render(request, 'base/room.html',context)
